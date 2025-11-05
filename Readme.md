@@ -2,6 +2,8 @@
 
 A RESTful calculator service with history, separation of logic, and authentication. Built in Go with best-effort microservice architecture.
 
+**Hosted Webpage:** [https://over-engineered-calculator-9zhz.onrender.com/](https://over-engineered-calculator-9zhz.onrender.com/)
+
 ---
 
 ## 🧮 Supported Operations
@@ -26,6 +28,12 @@ The `/calculate` endpoint evaluates mathematical expressions using standard infi
 { "error": "invalid character in expression" }
 ```
 
+* Division by zero returns an error JSON response:
+
+```json
+{ "error": "division by zero" }
+```
+
 ---
 
 ## 🔐 Authentication
@@ -43,6 +51,8 @@ All endpoints require **Basic Auth (email/password)**.
 2. Go to **Authorization → Basic Auth**
 3. Enter the credentials above
 4. Send the request
+5. Make sure the **server URL** in Postman is set to:
+   `https://over-engineered-calculator-9zhz.onrender.com/`
 
 ---
 
@@ -94,14 +104,14 @@ curl -u user@example.com:123456 \
      -X POST \
      -H "Content-Type: application/json" \
      -d '{"expression":"(2+3)*4"}' \
-     http://localhost:8080/calculate
+     https://over-engineered-calculator-9zhz.onrender.com/calculate
 ```
 
 **Get history:**
 
 ```bash
 curl -u user@example.com:123456 \
-     http://localhost:8080/history
+     https://over-engineered-calculator-9zhz.onrender.com/history
 ```
 
 ---
@@ -117,7 +127,7 @@ A Postman collection is provided for easy testing:
 1. Open [Postman Web](https://web.postman.co) or the desktop app
 2. Click **Import → File**
 3. Select `postman_collection.json`
-4. Set environment variable `base_url` if needed (`http://localhost:8080` for local testing)
+4. Set environment variable `base_url` if needed (`https://over-engineered-calculator-9zhz.onrender.com/` for hosted testing)
 5. Run the requests (`/calculate` and `/history`)
 
 ---
@@ -140,4 +150,6 @@ This modular structure follows **best-effort microservice principles**, with cle
 3. Send a GET request to `/history`
 4. Receive list of previous calculations, including the one just executed
 
-## This demonstrates how the calculator and history endpoints work together.
+This demonstrates how the calculator and history endpoints work together.
+
+**Try it live:** [https://over-engineered-calculator-9zhz.onrender.com/](https://over-engineered-calculator-9zhz.onrender.com/)
