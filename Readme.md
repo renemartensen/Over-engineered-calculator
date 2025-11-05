@@ -6,6 +6,18 @@ A RESTful calculator service with history, separation of logic, and authenticati
 
 ---
 
+## Local Deployment
+1. `go run cmd/server/main.go`
+2. Open browser at `http://localhost:8080`
+
+## Docker Deployment
+1. `docker build -t overengineered-calculator .`
+2. `docker run -p 8080:8080 overengineered-calculator`
+
+## Frontend
+- Open `http://localhost:8080` to use the web app.
+
+
 ## 🧮 Supported Operations
 
 The `/calculate` endpoint evaluates mathematical expressions using standard infix notation:
