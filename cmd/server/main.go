@@ -8,6 +8,11 @@ import (
 
 func main() {
 	router := api.NewRouter()
+
+	// Serve static files from /web directory
+	fs := http.FileServer(http.Dir("./web"))
+	router.PathPrefix("/").Handler(fs)
+
 	log.Println("Calculator server running on :8080")
 	log.Fatal(http.ListenAndServe(":8080", router))
 }

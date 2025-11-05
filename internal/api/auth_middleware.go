@@ -1,12 +1,14 @@
 package api
 
 import (
+	"log"
 	"net/http"
 )
 
 func AuthMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		email, password, ok := r.BasicAuth()
+		log.Println("Received auth:", email, password)
 		if !ok {
 			w.Header().Set("WWW-Authenticate", `Basic realm="Restricted"`)
 			http.Error(w, "Unauthorized", http.StatusUnauthorized)
