@@ -10,6 +10,21 @@
 		{
 			"name": "POST/calculate",
 			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "user@example.com",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -22,12 +37,9 @@
 					}
 				},
 				"url": {
-					"raw": "https://over-engineered-calculator-9zhz.onrender.com/calculate",
-					"protocol": "https",
+					"raw": "{{baseURL}}/calculate",
 					"host": [
-						"over-engineered-calculator-9zhz",
-						"onrender",
-						"com"
+						"{{baseURL}}"
 					],
 					"path": [
 						"calculate"
@@ -40,15 +52,27 @@
 		{
 			"name": "GET/history",
 			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "user@example.com",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://over-engineered-calculator-9zhz.onrender.com/history",
-					"protocol": "https",
+					"raw": "{{baseURL}}/history",
 					"host": [
-						"over-engineered-calculator-9zhz",
-						"onrender",
-						"com"
+						"{{baseURL}}"
 					],
 					"path": [
 						"history"
@@ -101,6 +125,13 @@
 					"body": "[{\"expression\":\"(3+5)/2\",\"result\":4},{\"expression\":\"(3+5)/3\",\"result\":2.6666666666666665},{\"expression\":\"(2+3)*5\",\"result\":25}]"
 				}
 			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "",
+			"type": "default"
 		}
 	]
 }
