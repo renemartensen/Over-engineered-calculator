@@ -122,11 +122,42 @@ func TestEvaluate(t *testing.T) {
 			},
 			24,
 		},
+		{
+			"unary minus",
+			&BinaryOp{
+				Left:     &Literal{Value: 3},
+				Operator: "*",
+				Right: &UnaryOp{
+					Operator: "-",
+					Operand:  &Literal{Value: 5},
+				},
+			},
+			-15,
+		},
+		{
+			"division by zero",
+			&BinaryOp{
+				Left:     &Literal{Value: 10},
+				Operator: "/",
+				Right:    &Literal{Value: 0},
+			},
+			0, // expect error
+		},
 	}
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			result := Evaluate(test.input)
+			result, err := Evaluate(test.input)
+			if test.name == "division by zero" && err == nil {
+				t.Errorf("Expected error, got nil")
+			}
+			if test.name == "division by zero" && err != nil {
+				return
+			}
+			if err != nil {
+				t.Errorf("Unexpected error: %v", err)
+				return
+			}
 			if result != test.expected {
 				t.Errorf("Expected %v, got %v", test.expected, result)
 			}

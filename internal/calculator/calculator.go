@@ -7,5 +7,9 @@ func EvaluateExpression(input string) (float64, error) {
 	}
 	parser := &Parser{tokens: tokens}
 	ast := parser.Parse()
-	return Evaluate(ast), nil
+	result, err := Evaluate(ast)
+	if err != nil {
+		return 0, err
+	}
+	return result, nil
 }
