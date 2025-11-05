@@ -116,6 +116,17 @@ curl -u user@example.com:123456 \
 
 ---
 
+## 🧪 Running Unit Tests
+
+To run all unit tests for the project, use the following command from the project root:
+
+```bash
+go test ./...
+```
+
+This will automatically find and execute all tests in the modules and subdirectories.
+
+
 ## 📦 Postman Collection
 
 A Postman collection is provided for easy testing:
