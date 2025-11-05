@@ -1,8 +1,3 @@
-const API_BASE = window.location.hostname === "localhost"
-  ? "http://localhost:8080"
-  : "https://your-render-app.onrender.com";
-
-
 document.getElementById("calculate").addEventListener("click", async () => {
   const expression = document.getElementById("expression").value;
   const resultDiv = document.getElementById("result");
@@ -10,7 +5,7 @@ document.getElementById("calculate").addEventListener("click", async () => {
   resultDiv.textContent = "Calculating...";
 
   try {
-    const response = await fetch(`${API_BASE}/calculate`, {
+    const response = await fetch(`/calculate`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -38,7 +33,7 @@ document.getElementById("calculate").addEventListener("click", async () => {
 });
 
 async function loadHistory() {
-  const response = await fetch(`${API_BASE}/history`, {
+  const response = await fetch(`/history`, {
     headers: {
       "Authorization": "Basic " + btoa("user@example.com:123456"),
     },
