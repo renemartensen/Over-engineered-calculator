@@ -1,0 +1,106 @@
+{
+	"info": {
+		"_postman_id": "7977af65-e092-4385-9d2d-1a79ab6f86ff",
+		"name": "Over-engineered calculator API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "49829464",
+		"_collection_link": "https://renemartensen-9790467.postman.co/workspace/dfb2dc05-a4fa-4bec-8b45-b96f6b912513/collection/49829464-7977af65-e092-4385-9d2d-1a79ab6f86ff?action=share&source=collection_link&creator=49829464"
+	},
+	"item": [
+		{
+			"name": "POST/calculate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"expression\": \"(2+3)*3\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://over-engineered-calculator-9zhz.onrender.com/calculate",
+					"protocol": "https",
+					"host": [
+						"over-engineered-calculator-9zhz",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"calculate"
+					]
+				},
+				"description": "**Purpose:**  \nThis endpoint evaluates a mathematical expression provided in the request body and returns the computed result.\n\n**Request Body Format:**\n\n- Content-Type: application/json\n    \n- { \"expression\": \"\"}\n    \n    - `expression` (string, required): The mathematical expression to evaluate. Example: \"(2+3)\\*5\"\n        \n    - Supported operations: parentheses ( and ), addition (+), subtraction (-), multiplication (\\*), and division (/)\n        \n\n**Response Format:**\n\n- Content-Type: application/json\n    \n- Body:\n    \n    ``` json\n            {\n              \"result\": <number>\n            }\n    \n     ```\n    \n    - `result` (number): The computed result of the provided expression.\n        \n\n**Example:**  \nRequest:\n\n``` json\n{\n  \"expression\": \"(2+3)*5\"\n}\n\n ```\n\nResponse:\n\n``` json\n{\n  \"result\": 25\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "GET/history",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://over-engineered-calculator-9zhz.onrender.com/history",
+					"protocol": "https",
+					"host": [
+						"over-engineered-calculator-9zhz",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"history"
+					]
+				},
+				"description": "GET /history\n\nSummary:  \nReturns the calculation history stored by the Over-engineered Calculator service. Each entry contains the original arithmetic expression and the evaluated numeric result.\n\nHTTP Method: GET  \nURL: [https://over-engineered-calculator-9zhz.onrender.com/history](https://over-engineered-calculator-9zhz.onrender.com/history)\n\nQuery Parameters: None\n\nResponse (200 OK):  \nAn array of history objects. Example:  \n\\[  \n{\"expression\": \"(3+5)/2\", \"result\": 4},  \n{\"expression\": \"(3+5)/3\", \"result\": 2.6666666666666665},  \n{\"expression\": \"(2+3)\\*5\", \"result\": 25}  \n\\]\n\nNotes:\n\n- The order is most-recent-last\n    \n\nUsage example (curl):  \ncurl -X GET [https://over-engineered-calculator-9zhz.onrender.com/history](https://over-engineered-calculator-9zhz.onrender.com/history)"
+			},
+			"response": [
+				{
+					"name": "200 - example history",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": "json"
+							}
+						},
+						"url": {
+							"raw": "https://over-engineered-calculator-9zhz.onrender.com/history",
+							"protocol": "https",
+							"host": [
+								"over-engineered-calculator-9zhz",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"history"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": ""
+						}
+					],
+					"cookie": [],
+					"body": "[{\"expression\":\"(3+5)/2\",\"result\":4},{\"expression\":\"(3+5)/3\",\"result\":2.6666666666666665},{\"expression\":\"(2+3)*5\",\"result\":25}]"
+				}
+			]
+		}
+	]
+}
