@@ -2,12 +2,13 @@ package api
 
 import (
 	"encoding/json"
-	"github.com/renemartensen/Over-engineered-calculator/internal/storage"
 	"io"
 	"net/http"
 	"net/http/httptest"
 	"strings"
 	"testing"
+
+	"github.com/renemartensen/Over-engineered-calculator/internal/storage"
 )
 
 func resetStore() {
@@ -102,4 +103,39 @@ func TestHistoryHandler(t *testing.T) {
 	if history[0]["expression"] != "1+1" || history[0]["result"].(float64) != 2 {
 		t.Fatalf("first history item mismatch")
 	}
+}
+
+func TestAuthMiddleware(t *testing.T) {
+	// Wrap a simple test handler with your AuthMiddleware
+	testHandler := AuthMiddleware(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("Authorized"))
+	}))
+
+	t.Run("Authorized request", func(t *testing.T) {
+		req := httptest.NewRequest("GET", "/", nil)
+		req.SetBasicAuth("user@example.com", "123456") // correct credentials
+
+		rr := httptest.NewRecorder()
+		testHandler.ServeHTTP(rr, req)
+
+		if rr.Code != http.StatusOK {
+			t.Errorf("Expected status 200, got %d", rr.Code)
+		}
+		if strings.TrimSpace(rr.Body.String()) != "Authorized" {
+			t.Errorf("Expected body 'Authorized', got %s", rr.Body.String())
+		}
+	})
+
+	t.Run("Unauthorized request", func(t *testing.T) {
+		req := httptest.NewRequest("GET", "/", nil)
+		req.SetBasicAuth("user@example.com", "wrongpassword") // wrong credentials
+
+		rr := httptest.NewRecorder()
+		testHandler.ServeHTTP(rr, req)
+
+		if rr.Code != http.StatusUnauthorized {
+			t.Errorf("Expected status 401, got %d", rr.Code)
+		}
+	})
 }
