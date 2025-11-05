@@ -1,13 +1,16 @@
 package api
 
-import (
-	"github.com/gorilla/mux"
-)
+import "github.com/gorilla/mux"
 
-// NewRouter sets up the HTTP routes
 func NewRouter() *mux.Router {
-	r := mux.NewRouter()
-	r.HandleFunc("/calculate", CalculateHandler).Methods("POST")
-	r.HandleFunc("/history", HistoryHandler).Methods("GET") // optional history endpoint
-	return r
+	router := mux.NewRouter()
+
+	// Protected routes
+	protected := router.PathPrefix("/").Subrouter()
+	protected.Use(AuthMiddleware)
+
+	protected.HandleFunc("/calculate", CalculateHandler).Methods("POST")
+	protected.HandleFunc("/history", HistoryHandler).Methods("GET")
+
+	return router
 }
